@@ -4,7 +4,7 @@
 
 ## Introduction
 
-This is a React project made by me showcasing flags of 227 countries and territories worldwide. Styled-components are utilized for managing the visual appearance, ensuring a polished and dynamic user experience. Players engage with the game by guessing the country based on its flag. It's an interactive way to test your knowledge of world flags.
+This is a React project created by me, showcasing the flags of 227 countries and territories worldwide. Styled-components are utilized for managing the visual appearance, ensuring a polished and dynamic user experience. Players engage with the game by guessing the country based on its flag. It's an interactive way to test your knowledge of world flags.
 
 ---
 
@@ -26,7 +26,7 @@ To run this project locally, follow these steps:
    or download the ZIP file.
 2. Navigate to the project directory:
    ```bash
-   cd guess-the-flag
+   cd Guess-The-Flag
    ```
 3. Install dependencies using npm or yarn:
    ```bash
@@ -49,8 +49,8 @@ yarn start
 
 ---
 
-Images sourced from Google.
-Sound effects sourced from https://pixabay.com/sound-effects/
+- Images sourced from Google.
+- Sound effects sourced from: https://pixabay.com/sound-effects/
 
 ---
 
