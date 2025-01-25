@@ -1,44 +1,76 @@
 // GUESSBOX.JSX
-import React, { useState } from 'react';
-import styled from 'styled-components';
+import React, { useState } from "react";
+import styled from "styled-components";
 
-const normalise = (value) => value.toUpperCase().replace(/[^A-Z\s]/g, '');
+const normalise = (value) => value.toUpperCase().replace(/[^A-Z\s]/g, "");
 
 // STYLED COMPONENTS
 const StyledForm = styled.form`
+  font-family: "Poppins", sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  object-fit: contain;
   margin-top: 1em;
   margin-bottom: 1em;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  font-family: 'Poppins', sans-serif;
+  margin-left: 1em;
+  margin-right: -1em;
   height: 3em;
+  max-width: 20em;
+
+  // MOBILE
+  @media (max-width: 768px) {
+    font-size: 1.2em;
+    max-width: 10em;
+    margin-left: auto;
+    margin-right: auto;
+  }
 `;
 
 const StyledInput = styled.input`
-  flex: 1;
-  padding: 0.5em;
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
   font-size: 1em;
-  border: 2px solid #000000;
-  border-radius: 5px;
+  padding: 0.4em 0.8em;
+  border: 0.125em solid #000000;
+  border-radius: 0.3125em;
+  margin-left: auto;
+  margin-right: auto;
+
+  // MOBILE
+  @media (max-width: 768px) {
+    font-size: 0.8em;
+    max-width: 12em;
+    padding: 0.4em 0.8em;
+    margin-left: auto;
+    margin-right: auto;
+  }
 `;
 
 const SubmitButton = styled.button`
-  margin-left: 1em;
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
   font-size: 1em;
   padding: 0.4em 0.8em;
-  border: 2px solid #000000;
-  border-radius: 5px;
+  border: 0.125em solid #000000;
+  border-radius: 0.3125em;
   background-color: #ffffff;
   color: #000000;
+  margin-left: auto;
+  margin-right: auto;
   cursor: pointer;
+
+  // MOBILE
+  @media (max-width: 768px) {
+    font-size: 0.8em;
+    padding: 0.4em 0.8em;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 6em;
+  }
 `;
 
 // GUESSBOX LOGIC
 const GuessBox = ({ answer, onCorrect, onIncorrect }) => {
-  const [value, setValue] = useState('');
+  const [value, setValue] = useState("");
 
   const handleChange = (event) => {
     const inputValue = event.target.value.toUpperCase();
@@ -52,12 +84,12 @@ const GuessBox = ({ answer, onCorrect, onIncorrect }) => {
     const normalizedCorrectAnswer = normalise(answer);
 
     if (normalizedUserInput === normalizedCorrectAnswer) {
-      onCorrect();
+      onCorrect(); // CALL ONCORRECT FUNCTION
     } else {
-      onIncorrect();
+      onIncorrect(); // CALL ONINCORRECT FUNCTION
     }
 
-    setValue('');
+    setValue(""); // RESET THE INPUT FIELD
   };
 
   return (

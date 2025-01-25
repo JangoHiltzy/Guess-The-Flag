@@ -1,44 +1,44 @@
-// APP.JSX
-import React, { useState, useEffect } from 'react';
-import styled from 'styled-components';
-import flagsData from './flags';
-import GuessBox from './GuessBox';
+import React, { useState, useEffect } from "react";
+import styled from "styled-components";
+import flagsData from "./flags";
+import GuessBox from "./GuessBox";
 
 // STYLED COMPONENTS
 const PageContainer = styled.div`
-  margin: 0;
-  padding: 0;
-  overflow: hidden;
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  background-image: url('/background.jpg');
-  background-size: cover;
-  background-position: center;
+padding: 0;
+overflow: hidden;
+position: fixed
+width: 100%;
+height: 100%;
+display: flex;
+justify-content: center;
+align-items: center;
+flex-direction: column;
+background-image: url("/background.jpg");
+background-size: cover;
+margin: 0;
+background-position: center;
+
+  //MOBILE
+  @media (max-width: 768px) {
+    padding: 5%;
+  }
 `;
 
 const GameName = styled.h1`
   font-size: 2.5em;
+  position: fixed;
+  top: 4vh;
+  transform: translateX(0%);
+  z-index: 999;
   color: white;
   margin: 10px 0;
-  position: fixed;
-  top: 25px;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 999;
-`;
+  white-space: nowrap;
 
-const IconImage = styled.img`
-  width: 100px;
-  height: 100px;
-  position: fixed;
-  top: 20px;
-  left: calc(50% + 180px);
-  z-index: 999;
+  //MOBILE
+  @media (max-width: 768px) {
+    font-size: 2em;
+  }
 `;
 
 const FlagImage = styled.img`
@@ -46,15 +46,28 @@ const FlagImage = styled.img`
   height: 500px;
   object-fit: contain;
   margin-bottom: 25px;
+
+  //MOBILE
+  @media (max-width: 768px) {
+    height: auto;
+    width: 100%;
+    max-width: 18.75em;
+  }
 `;
 
 const CurrentScore = styled.div`
-  display: block;
   font-size: 2.5em;
+  display: block;
   color: white;
+  text-align: center;
   margin-bottom: 10px;
   span {
     font-weight: normal;
+  }
+
+  //MOBILE
+  @media (max-width: 768px) {
+    font-size: 1.8em;
   }
 `;
 
@@ -66,9 +79,15 @@ const AnswerNotification = styled.div`
   padding: 20px;
   border-radius: 10px;
   cursor: pointer;
-  display: ${(props) => (props.show ? 'block' : 'none')};
-  background-color: ${(props) => (props.correct ? '#4CAF50' : '#f44336')};
+  display: ${(props) => (props.show ? "block" : "none")};
+  background-color: ${(props) => (props.correct ? "#4CAF50" : "#f44336")};
   color: white;
+
+  //MOBILE
+  @media (max-width: 768px) {
+    font-size: 1.2em;
+    padding: 1em;
+  }
 `;
 
 const GameFinishedNotification = styled.div`
@@ -80,23 +99,38 @@ const GameFinishedNotification = styled.div`
   border-radius: 10px;
   background-color: #000000;
   color: white;
-  display: ${(props) => (props.show ? 'block' : 'none')};
+  display: ${(props) => (props.show ? "block" : "none")};
+
+  // MOBILE
+  @media (max-width: 768px) {
+    font-size: 1.2em;
+    padding: 1em;
+  }
 `;
 
 const Footer = styled.footer`
   position: fixed;
   bottom: 0;
   right: 0;
-  margin: auto;
   width: 100%;
   background-color: #851616;
   color: white;
   text-align: center;
-  padding: 12px 0;
-  border: 2px solid white;
-  border-radius: 5px;
+  padding: 1.25 0em;
+  border-radius: 0.3125em;
+
+  .footer-text {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin-top: 1em;
+  }
 
   .social-icon {
+    margin: 0.625em;
+    width: 1.875em;
+    height: 1.875em;
     transition: opacity 0.3s ease;
   }
 
@@ -106,13 +140,20 @@ const Footer = styled.footer`
 
   .social-icon.portfolio-icon {
     position: relative;
-    top: 20px;
-    left: 10px;
+    left: -2em;
+    bottom: 0px;
+  }
+
+  .social-icon.github-icon {
+    position: relative;
+    left: 0em;
+    bottom: 0px;
   }
 
   .social-icon.linkedin-icon {
     position: relative;
-    left: 25px;
+    left: 2em;
+    bottom: 0px;
   }
 `;
 
@@ -126,9 +167,9 @@ const App = () => {
   const totalFlags = flagsData.length;
   const [gameFinished, setGameFinished] = useState(false);
   const [correctAnswer, setCorrectAnswer] = useState(null);
-  const correctSound = '/correct.mp3';
-  const incorrectSound = '/incorrect.mp3';
-  const finishedSound = '/finished.mp3';
+  const correctSound = "/correct.mp3";
+  const incorrectSound = "/incorrect.mp3";
+  const finishedSound = "/finished.mp3";
   const correctAudio = new Audio(correctSound);
   const incorrectAudio = new Audio(incorrectSound);
 
@@ -146,7 +187,7 @@ const App = () => {
   };
 
   const onCorrect = () => {
-    setCorrectAnswer('Correct!');
+    setCorrectAnswer("Correct!");
     setScore(score + 1);
     nextFlag();
     correctAudio.play();
@@ -176,7 +217,6 @@ const App = () => {
 
   return (
     <PageContainer>
-      <IconImage src='/icon.png' alt='Game Icon' />
       <GameName>Guess The Flag</GameName>
       <FlagImage src={imageUrl} alt={name} />
       {!gameFinished && (
@@ -192,22 +232,35 @@ const App = () => {
       <AnswerNotification
         show={correctAnswer !== null}
         onClick={() => setCorrectAnswer(null)}
-        correct={correctAnswer === 'Correct!'}
+        correct={correctAnswer === "Correct!"}
       >
         <h2>{correctAnswer}</h2>
       </AnswerNotification>
+
       <GameFinishedNotification show={gameFinished} onClick={resetGame}>
         <h2>Game Finished!</h2>
-        <p>Final Score: {score} of 227</p>
+        <p>
+          Final Score: {score} of {totalFlags}
+        </p>
         <p>Click here to play again</p>
       </GameFinishedNotification>
       <Footer>
-        <span style={{ marginRight: '25px' }}>© 2024 by Jani Hiltunen</span>
+        <div
+          className='footer-text'
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            width: "100%",
+          }}
+        >
+          <span>© 2024 by Jani Hiltunen</span>
+        </div>
+
         <a
           href='https://jhiltunenportfolio.netlify.app'
           target='_blank'
           rel='noreferrer'
-          style={{ marginRight: '15px', textDecoration: 'none' }}
           title='My portfolio page'
         >
           <img
@@ -220,20 +273,18 @@ const App = () => {
           href='https://github.com/JangoHiltzy'
           target='_blank'
           rel='noreferrer'
-          style={{ marginRight: '15px', textDecoration: 'none' }}
           title='My GitHub profile'
         >
           <img
             src='/githubicon.png'
             alt='My GitHub profile'
-            className='social-icon'
+            className='social-icon github-icon'
           />
         </a>
         <a
           href='https://www.linkedin.com/in/hiltzy/'
           target='_blank'
           rel='noreferrer'
-          style={{ marginRight: '15px', textDecoration: 'none' }}
           title='My LinkedIn profile'
         >
           <img
